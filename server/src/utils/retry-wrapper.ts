@@ -1,10 +1,10 @@
-// why make this file?
-// I need to distinguish between firebase errors vs other types
-// distinguishing between these errors will be a repeated pattern for all async functions
-// therefore, making a generic function to handle this pattern is preferable. 
-// purpose: we will only want to retry on errors that make sense, such as a short network interrupt or timeout 
+// Why make this file?
+// Purpose: we will only want to retry on errors that make sense, such as a short network interrupt or timeout 
 // that may be recoverable. But we wouldn't want to retry on a missing credentials error since retrying there doesn't help.
-// could handle non-firebase erros, but keeping scope to firebase, currently. 
+// Additionally, our utils will all need try/catch blocks due to being asynchronous.
+// Therefore, making a generic function to handle this repeated pattern is preferable. 
+// could handle non-firebase errors, but keeping scope to firebase, currently. 
+// Currently: function tries connecting <maxAttempts> times no matter the error.
 
 import { FirebaseError } from "firebase-admin";
 
@@ -17,29 +17,29 @@ async function retryWrapper<T>(fn: () => Promise<T>): Promise<T> {
     let caughtError: unknown;
 do {
     try {
-        // fnPromise is actually of type T and not a promise within retryWrapper after awaiting
+        // fnPromise is actually of type T and not a promise after awaiting
         // however, it is wrapped back up in a promise on return because
         // async functions always return promises
-                let fnPromise = await fn();
-                return fnPromise;
-            }
+        let fnPromise = await fn();
+        return fnPromise;
+    }
             // err is unknown because js can throw anything (string, 42 {something: true})
             // must prove what it is before using it
             catch(err: unknown) {
             // get error code if firebaseerror, retry if issue is easy to fix. 
                 if (err instanceof FirebaseError) {
                     if ('code' in err){
-                        console.log(err.code);
+                        console.error(err.code);
                     }
                 }
                 else if (err instanceof Error) {
                 // log message for all errors
-                    console.log(err.message);
+                    console.error(err.message);
                 }
             // store err in local var to persist in function's scope outside try/catch
             caughtError = err;
             // increment and print attempts
-            console.log( `retryWrapper attempts: ${++currentAttempt} of ${maxAttempts} max attempts`);
+            console.error( `retryWrapper attempts: ${++currentAttempt} of ${maxAttempts} max attempts`);
     }
 } while (currentAttempt < maxAttempts)
     // throw and print caughtError as Error to log .message
