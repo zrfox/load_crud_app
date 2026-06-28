@@ -1,0 +1,9 @@
+import { Router } from "express";
+import { getAllTrucks, getTruckById } from "../controllers/trucks";
+
+const router = Router();
+
+router.get('/', getAllTrucks);
+router.get('/id', getTruckById);
+
+export default router;
