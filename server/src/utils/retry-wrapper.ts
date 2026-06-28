@@ -43,6 +43,7 @@ do {
     }
 } while (currentAttempt < maxAttempts)
     // throw and print caughtError as Error to log .message
+    // throw error since it failed my own design decision, not a library or language error
     throw new Error(`retryWrapper failed after ${maxAttempts} attempts. Error: ${(caughtError as Error).message}`)
 }
         
