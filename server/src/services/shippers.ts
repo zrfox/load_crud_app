@@ -1,0 +1,13 @@
+import db from "../utils/init-firebase";
+import { Shipper } from "../types/shippers";
+
+export async function fetchAllShippers(): Promise<Shipper[]> {
+    const snapshot = await db.collection('shippers').get();
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data()})) as Shipper[];
+}
+
+export async function fetchShipperById(id: string): Promise<Shipper | null> {
+    const snap = await db.collection('shippers').doc(id).get();
+    if (!snap.exists) return null;
+    return ({id: snap.id, ...snap.data()}) as Shipper;
+}
