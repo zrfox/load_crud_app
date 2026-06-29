@@ -3,6 +3,7 @@
 
 export interface Load {
     id: string;
+    createdAt: string;
     cargoDescription: string;
     deliveryDate: string | null;
     destination: string;
