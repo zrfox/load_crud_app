@@ -1,4 +1,4 @@
-import db from "../utils/init-firebase";
+import db from "../utils/firebase/init-firebase";
 import { Product } from "../types/products";
 
 export async function fetchAllProducts(): Promise<Product[]> {

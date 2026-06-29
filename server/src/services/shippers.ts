@@ -1,4 +1,4 @@
-import db from "../utils/init-firebase";
+import db from "../utils/firebase/init-firebase";
 import { Shipper } from "../types/shippers";
 
 export async function fetchAllShippers(): Promise<Shipper[]> {

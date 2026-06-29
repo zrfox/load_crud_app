@@ -1,9 +1,9 @@
-import db from "../utils/init-firebase";
+import db from "../utils/firebase/init-firebase";
 import { Truck } from "../types/trucks";
 
 export async function fetchAllTrucks(): Promise<Truck[]> {
     const snapshot = await db.collection('trucks').get();
-    return snapshot.docs.map(doc => ({ id: doc.id ...doc.data()})) as Truck[];
+    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data()})) as Truck[];
 }
 
 export async function fetchTruckById(id: string): Promise<Truck | null> {

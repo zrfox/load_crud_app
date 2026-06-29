@@ -1,7 +1,7 @@
 // business logic and firestore calls. No knowledge of req/res. 
 // No knowledge of HTTP. 
 
-import db from "../utils/init-firebase";
+import db from "../utils/firebase/init-firebase";
 import { Load } from "../types/loads";
 
 export async function fetchAllLoads(): Promise<Load[]> {
