@@ -31,3 +31,8 @@ export async function updateTruckById(id: string, data: Partial<Omit<Truck, 'id'
     }
     return updatedTruck;
 }
+
+// DELETE
+export async function deleteTrucksById(id: string) {
+    await db.collection('trucks').doc(id).delete();
+}

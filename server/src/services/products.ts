@@ -32,3 +32,8 @@ export async function updateProductById(id: string, data: Partial<Omit<Product, 
     }
     return updatedProduct;
 }
+
+// DELETE
+export async function deleteProductById(id: string) {
+    await db.collection('products').doc(id).delete();
+}

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createShipper as createShipperService, fetchAllShippers, fetchShipperById, updateShipperById as updateShipperByIdService } from "../services/shippers"
+import { createShipper as createShipperService, fetchAllShippers, fetchShipperById, updateShipperById as updateShipperByIdService, deleteShipperById as deleteShipperByIdService } from "../services/shippers"
 
 // CREATE
 export async function createShipper(req: Request, res: Response) {
@@ -55,5 +55,25 @@ export async function updateShipperById(req: Request, res: Response) {
         res.status(200).json(updatedShipper);
     } catch (err) {
         res.status(500).json({ error: 'Failed to update shipper' });
+    }
+}
+
+// DELETE 
+export async function deleteShipperById(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        if (!id || typeof id !== 'string') {
+            res.status(400).json({ error: `Delete for shipper id ${id} is invalid` });
+            return;
+        }
+        const shipper = await fetchShipperById(id);
+        if (!shipper) {
+            res.status(404).json({ error: `Shipper id ${id} cannot be found`});
+            return;
+        }
+        deleteShipperByIdService(id);
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete shipper'})
     }
 }

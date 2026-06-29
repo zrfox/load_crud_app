@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createProduct as createProductService, fetchAllProducts, fetchProductById, updateProductById as updateProductByIdService } from "../services/products";
+import { createProduct as createProductService, fetchAllProducts, fetchProductById, updateProductById as updateProductByIdService, deleteProductById as deleteProductByIdService } from "../services/products";
 
 // CREATE
 export async function createProduct(req: Request, res: Response) {
@@ -56,4 +56,23 @@ export async function updateProductById(req: Request, res: Response) {
         res.status(500).json({ error: 'Failed to update product' })
     }
     
+}
+// DELETE
+export async function deleteProductById(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        if (!id || typeof id !== 'string') {
+            res.status(400).json({ error: `delete for product id ${id} is invalid`});
+            return;
+        }
+        const product = await fetchProductById(id);
+        if (!product) {
+            res.status(404).json({error: `Product id ${id} cannot be found`});
+            return;
+        }
+        await deleteProductByIdService(id);
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete product'});
+    }
 }

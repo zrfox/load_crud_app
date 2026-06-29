@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createTruck, getAllTrucks, getTruckById, updateTruckById } from "../controllers/trucks";
+import { createTruck, getAllTrucks, getTruckById, updateTruckById, deleteTruckById } from "../controllers/trucks";
 
 const router = Router();
 
@@ -12,5 +12,8 @@ router.get('/:id', getTruckById);
 
 // UPDATE
 router.put('/:id', updateTruckById);
+
+// DELETE
+router.delete('/:id', deleteTruckById)
 
 export default router;

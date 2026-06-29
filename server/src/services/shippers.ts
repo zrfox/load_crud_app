@@ -31,3 +31,8 @@ export async function updateShipperById(id: string, data: Partial<Omit<Shipper, 
     }
     return updatedShipper;
 }
+
+// DELETE
+export async function deleteShipperById(id: string) {
+    await db.collection('shihppers').doc(id).delete();
+}

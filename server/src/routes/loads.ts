@@ -2,7 +2,7 @@
 // routes don't know about firestore/database
 
 import { Router } from "express";
-import { createLoad, getAllLoads, getLoadById, updateLoadById } from "../controllers/loads";
+import { createLoad, getAllLoads, getLoadById, updateLoadById, deleteLoadById } from "../controllers/loads";
 
 const router = Router();
 
@@ -15,5 +15,8 @@ router.get('/:id', getLoadById);
 
 // UPDATE
 router.put('/:id', updateLoadById);
+
+// DELETE
+router.delete('/:id', deleteLoadById);
 
 export default router;

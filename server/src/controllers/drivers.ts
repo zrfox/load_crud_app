@@ -1,5 +1,5 @@
 import { Request, response, Response } from "express";
-import { createDriver as createDriverService, fetchAllDrivers, fetchDriverById, updateDriverById as updateDriverByIdService } from "../services/drivers";
+import { createDriver as createDriverService, fetchAllDrivers, fetchDriverById, updateDriverById as updateDriverByIdService, deleteDriverById as deleteDriverByIdService } from "../services/drivers";
 import { loadEnvFile } from "node:process";
 
 // CREATE
@@ -47,7 +47,7 @@ export async function updateDriverById(req: Request, res: Response) {
         const { id } = req.params;
         const data = req.body;
         if (!id || typeof id !== 'string') {
-            res.status(400).json({error: `Update for driver id ${id} is invalid`});
+            res.status(400).json({ error: `Update for driver id ${id} is invalid` });
             return;
         }
         // TODO: validate data = req.body
@@ -55,5 +55,25 @@ export async function updateDriverById(req: Request, res: Response) {
         res.status(200).json(updatedDriver);
     } catch (err) {
         res.status(500).json({ error: 'Failed to update driver'})
+    }
+}
+
+// DELETE
+export async function deleteDriverById( req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        if (!id || typeof id !== 'string') {
+            res.status(400).json({ error: `Delete for driver id ${id} is invalid` });
+            return;
+        }
+        const driver = await fetchDriverById(id);
+        if(!driver) {
+            res.status(404).json({ error: `Driver id ${id} cannot be found`});
+            return;
+        }
+        await deleteDriverByIdService(id);
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete driver'})
     }
 }

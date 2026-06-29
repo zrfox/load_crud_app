@@ -3,7 +3,7 @@
 
 import { Request, Response } from "express";
 import db from "../utils/firebase/init-firebase";
-import { createLoad as createLoadService, fetchAllLoads, fetchLoadById, updateLoadById as updateLoadByIdService } from "../services/loads";
+import { createLoad as createLoadService, fetchAllLoads, fetchLoadById, updateLoadById as updateLoadByIdService, deleteLoadById as deleteLoadByIdService } from "../services/loads";
 import { Load } from "../types/loads";
 
 // CREATE
@@ -59,5 +59,24 @@ export async function updateLoadById(req: Request, res: Response) {
         res.status(200).json(updatedLoad);
     } catch (err) {
         res.status(500).json({ error: 'Failed to update load'})
+    }
+}
+
+// DELETE
+export async function deleteLoadById(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        if (!id || typeof id !== 'string') {
+            res.status(400).json({ error: `Delete for driver id ${id} is invalid`});
+            return;
+        }
+        const load = await fetchLoadById(id);
+        if (!load) {
+            res.status(404).json({ error: `Load id ${id} cannot be found`});
+        }
+        await deleteLoadByIdService(id);
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to delete load'});
     }
 }

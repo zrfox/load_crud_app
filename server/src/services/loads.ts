@@ -37,3 +37,8 @@ export async function updateLoadById(id: string, data: Partial<Omit<Load, 'id'>>
     }
     return updatedLoad;
 }
+
+// DELETE
+export async function deleteLoadById(id: string) {
+    await db.collection('loads').doc(id).delete();
+}

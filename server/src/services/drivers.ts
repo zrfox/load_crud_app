@@ -23,7 +23,7 @@ export async function fetchDriverById(id: string): Promise<Driver | null> {
 }
 
 // UPDATE
-// Partial makes fields optional
+// Partial makes fields optional. Check updatedDriver for typescript control flow to accept return of updatedDriver (updatedDriver may be Driver or null, so needs to check null)
 export async function updateDriverById(id: string, data: Partial<Omit<Driver, 'id'>>): Promise<Driver> {
     await db.collection('drivers').doc(id).update(data);
     const updatedDriver = await fetchDriverById(id);
@@ -31,4 +31,10 @@ export async function updateDriverById(id: string, data: Partial<Omit<Driver, 'i
         throw new Error(`Driver ${id} not found after update.`);
     }
     return updatedDriver;
+}
+
+// DELETE
+// check existence of doc by id beforehand in controller
+export async function deleteDriverById(id: string) {
+    await db.collection('drivers').doc(id).delete();
 }
