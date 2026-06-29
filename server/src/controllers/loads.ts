@@ -2,7 +2,20 @@
 // controllers don't know about firestore/database
 
 import { Request, Response } from "express";
-import { fetchAllLoads, fetchLoadById } from "../services/loads";
+import db from "../utils/firebase/init-firebase";
+import { fetchAllLoads, fetchLoadById, createLoad as createLoadService} from "../services/loads";
+import { Load } from "../types/loads";
+
+// CREATE
+
+export async function createLoad(req: Request, res: Response) {
+    try {
+        const load = await createLoadService(req.body);
+        res.status(201).json(load);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to create load.'})
+    }
+}
 
 export async function getAllLoads(req: Request, res: Response) {
     // catch service errors

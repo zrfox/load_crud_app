@@ -1,6 +1,18 @@
 import { Request, Response } from "express";
-import { fetchAllProducts, fetchProductById } from "../services/products";
+import { createProduct as createProductService, fetchAllProducts, fetchProductById } from "../services/products";
 
+// CREATE
+export async function createProduct(req: Request, res: Response) {
+    try {
+        const driver = await createProductService(req.body);
+        // 201 = successfully created
+        res.status(201).json(driver);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to create product'});
+    }
+}
+
+// READ
 export async function getAllProducts(req: Request, res: Response) {
     try {
         const products = await fetchAllProducts();

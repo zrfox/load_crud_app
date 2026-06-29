@@ -1,6 +1,17 @@
 import db from "../utils/firebase/init-firebase";
 import { Product } from "../types/products";
 
+// CREATE
+export async function createProduct(data: Omit<Product, 'id'>): Promise<Product> {
+    const docRef = db.collection('products').add({
+        // spread operator unpacks data so it's not a nested object but on level with createdAt
+        ...data,
+        createdAt: new Date().toISOString()
+    });
+    return { id: (await docRef).id, ...data} as Product;
+}
+
+// READ
 export async function fetchAllProducts(): Promise<Product[]> {
     const snapshot = await db.collection('products').get();
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data()})) as Product[];

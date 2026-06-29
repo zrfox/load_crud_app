@@ -1,6 +1,16 @@
 import db from "../utils/firebase/init-firebase";
 import { Shipper } from "../types/shippers";
 
+// CREATE
+export async function createShipper(data: Omit<Shipper, 'id'>): Promise<Shipper> {
+    const docRef = await db.collection('shipper').add({
+        ...data,
+        createdAt: new Date().toISOString()
+    });
+    return { id: docRef.id, ...data} as Shipper;
+}
+
+// READ
 export async function fetchAllShippers(): Promise<Shipper[]> {
     const snapshot = await db.collection('shippers').get();
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data()})) as Shipper[];

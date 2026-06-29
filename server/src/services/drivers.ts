@@ -1,5 +1,16 @@
 import db from "../utils/firebase/init-firebase";
 import { Driver } from "../types/drivers";
+
+// CREATE
+export async function createDriver(data: Omit<Driver, 'id'>): Promise<Driver> {
+    const docRef = await db.collection('drivers').add({
+        ...data,
+        createdAt: new Date().toISOString()
+    });
+    return { id: docRef.id, ...data } as Driver;
+}
+
+// READ
 export async function fetchAllDrivers(): Promise<Driver[]> {
     const snapshot = await db.collection('drivers').get();
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as Driver[]

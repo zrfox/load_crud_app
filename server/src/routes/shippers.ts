@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getAllShippers, getShipperById } from "../controllers/shippers";
+import { createShipper, getAllShippers, getShipperById } from "../controllers/shippers";
 
 const router = Router();
 
+// CREATE
+router.post('/', createShipper);
+
+// READ
 router.get('/', getAllShippers);
 router.get('/id', getShipperById);
 

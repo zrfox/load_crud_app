@@ -1,6 +1,17 @@
 import { Request, Response } from "express";
-import { fetchAllTrucks, fetchTruckById } from "../services/trucks";
+import { createTruck as createTruckService, fetchAllTrucks, fetchTruckById } from "../services/trucks";
 
+// CREATE
+export async function createTruck(req: Request, res: Response) {
+    try {
+        const truck = await createTruckService(req.body);
+        res.status(201).json(truck);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to create truck'});
+    }
+}
+
+// READ
 export async function getAllTrucks(req: Request, res: Response) {
     try {
         const trucks = await fetchAllTrucks();

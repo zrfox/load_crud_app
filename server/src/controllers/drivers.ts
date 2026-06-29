@@ -1,6 +1,20 @@
 import { Request, Response } from "express";
-import { fetchAllDrivers, fetchDriverById } from "../services/drivers";
+import { createDriver as createDriverService, fetchAllDrivers, fetchDriverById } from "../services/drivers";
+import { loadEnvFile } from "node:process";
 
+// CREATE
+export async function createDriver(req: Request, res: Response) {
+    try {
+        const driver = await createDriverService(req.body);
+        res.status(201).json(driver);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to created driver'});
+    }
+}
+
+
+
+// READ
 export async function getAllDrivers(req: Request, res: Response) {
     try {
         const loads = await fetchAllDrivers();

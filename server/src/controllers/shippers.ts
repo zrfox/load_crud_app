@@ -1,7 +1,18 @@
 import { Request, Response } from "express";
-import { fetchAllShippers, fetchShipperById } from "../services/shippers"
+import { createShipper as createShipperService, fetchAllShippers, fetchShipperById } from "../services/shippers"
+
+// CREATE
+export async function createShipper(req: Request, res: Response) {
+    try {
+        const shipper = await createShipperService(req.body);
+        res.status(201).json(shipper);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to create shipper.'})
+    }
+}
 
 
+// READ
 export async function getAllShippers(req: Request, res: Response) {
     try {
         const shippers = await fetchAllShippers();
