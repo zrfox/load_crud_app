@@ -21,3 +21,14 @@ export async function fetchDriverById(id: string): Promise<Driver | null> {
     if (!snap.exists) return null;
     return { id: snap.id, ...snap.data()} as Driver;
 }
+
+// UPDATE
+// Partial makes fields optional
+export async function updateDriverById(id: string, data: Partial<Omit<Driver, 'id'>>): Promise<Driver> {
+    await db.collection('drivers').doc(id).update(data);
+    const updatedDriver = await fetchDriverById(id);
+    if (!updatedDriver) {
+        throw new Error(`Driver ${id} not found after update.`);
+    }
+    return updatedDriver;
+}

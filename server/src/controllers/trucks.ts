@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createTruck as createTruckService, fetchAllTrucks, fetchTruckById } from "../services/trucks";
+import { createTruck as createTruckService, fetchAllTrucks, fetchTruckById, updateTruckById as updateTruckByIdService } from "../services/trucks";
 
 // CREATE
 export async function createTruck(req: Request, res: Response) {
@@ -23,7 +23,7 @@ export async function getAllTrucks(req: Request, res: Response) {
 
 export async function getTruckById(req: Request, res: Response) {
     try {
-        const id = req.params.id;
+        const { id } = req.params;
         if (!id || typeof id !== 'string') {
             res.status(400).json({ error: 'Invalid id'});
             return;
@@ -35,5 +35,22 @@ export async function getTruckById(req: Request, res: Response) {
         res.json(truck);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch truck'});
+    }
+}
+
+// UPDATE
+export async function updateTruckById(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        const data = req.body;
+        if (!id || typeof id !== 'string') {
+            res.status(400).json({ error: 'Invalid truck id' });
+            return;
+        }
+        // TODO: validate data = req.body
+        const updatedTruck = updateTruckByIdService(id, data);
+        res.status(200).json(updatedTruck);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to update truck'});
     }
 }

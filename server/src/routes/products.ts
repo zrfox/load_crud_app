@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProduct, getAllProducts, getProductById } from "../controllers/products";
+import { createProduct, getAllProducts, getProductById, updateProductById } from "../controllers/products";
 
 const router = Router();
 
@@ -8,6 +8,9 @@ router.post('/', createProduct);
 
 // READ
 router.get('/', getAllProducts);
-router.get('/id', getProductById);
+router.get('/:id', getProductById);
+
+// UPDATE
+router.put('/:id', updateProductById);
 
 export default router;

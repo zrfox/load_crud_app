@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createShipper, getAllShippers, getShipperById } from "../controllers/shippers";
+import { createShipper, getAllShippers, getShipperById, updateShipperById } from "../controllers/shippers";
 
 const router = Router();
 
@@ -8,6 +8,9 @@ router.post('/', createShipper);
 
 // READ
 router.get('/', getAllShippers);
-router.get('/id', getShipperById);
+router.get('/:id', getShipperById);
+
+// UPDATE
+router.put('/:id', updateShipperById);
 
 export default router;

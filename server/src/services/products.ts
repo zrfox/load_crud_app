@@ -22,3 +22,13 @@ export async function fetchProductById(id: string): Promise<Product | null> {
     if (!snap.exists) return null;
     return ({ id: snap.id, ...snap.data()}) as Product;
 }
+
+// UPDATE
+export async function updateProductById(id: string, data: Partial<Omit<Product, 'id'>>): Promise<Product> {
+    await db.collection('products').doc(id).update(data);
+    const updatedProduct = await fetchProductById(id);
+    if (!updatedProduct) {
+        throw new Error ('Failed to fetch product after update.');
+    }
+    return updatedProduct;
+}

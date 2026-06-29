@@ -27,3 +27,13 @@ export async function fetchLoadById(id: string): Promise<Load | null> {
     if (!snap.exists) return null;
     return { id: snap.id, ...snap.data() } as Load;
 }
+
+// UPDATE
+export async function updateLoadById(id: string, data: Partial<Omit<Load, 'id'>>): Promise<Load> {
+    await db.collection('loads').doc(id).update(data);
+    const updatedLoad = await fetchLoadById(id);
+    if (!updatedLoad) {
+        throw new Error(`Failed to fetch load ${id} after updated.`);
+    }
+    return updatedLoad;
+}

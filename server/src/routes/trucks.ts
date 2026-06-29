@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createTruck, getAllTrucks, getTruckById } from "../controllers/trucks";
+import { createTruck, getAllTrucks, getTruckById, updateTruckById } from "../controllers/trucks";
 
 const router = Router();
 
@@ -8,6 +8,9 @@ router.post('/', createTruck);
 
 // READ
 router.get('/', getAllTrucks);
-router.get('/id', getTruckById);
+router.get('/:id', getTruckById);
+
+// UPDATE
+router.put('/:id', updateTruckById);
 
 export default router;

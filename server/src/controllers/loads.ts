@@ -3,11 +3,10 @@
 
 import { Request, Response } from "express";
 import db from "../utils/firebase/init-firebase";
-import { fetchAllLoads, fetchLoadById, createLoad as createLoadService} from "../services/loads";
+import { createLoad as createLoadService, fetchAllLoads, fetchLoadById, updateLoadById as updateLoadByIdService } from "../services/loads";
 import { Load } from "../types/loads";
 
 // CREATE
-
 export async function createLoad(req: Request, res: Response) {
     try {
         const load = await createLoadService(req.body);
@@ -17,6 +16,7 @@ export async function createLoad(req: Request, res: Response) {
     }
 }
 
+// READ
 export async function getAllLoads(req: Request, res: Response) {
     // catch service errors
     try {
@@ -29,7 +29,7 @@ export async function getAllLoads(req: Request, res: Response) {
 
 export async function getLoadById(req: Request, res: Response) {
     try {
-        const id = req.params.id;
+        const { id } = req.params;
         if (!id || typeof id !== 'string') {
             res.status(400).json({ error: 'Invalid id'});
             return;
@@ -42,5 +42,22 @@ export async function getLoadById(req: Request, res: Response) {
     res.json(load);
     } catch (err) {
         res.status(500).json({ error: 'Failed to fetch load' });
+    }
+}
+
+// UPDATE
+export async function updateLoadById(req: Request, res: Response) {
+    try {
+        const { id } = req.params;
+        const data = req.body;
+        if (!id || typeof id !== 'string') {
+            res.status(400).json({ error: `Update for load id ${id} is invalid`});
+            return;
+        }
+        // TODO: validate data = req.body
+        const updatedLoad = await updateLoadByIdService(id, data);
+        res.status(200).json(updatedLoad);
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to update load'})
     }
 }

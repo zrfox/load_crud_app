@@ -21,3 +21,13 @@ export async function fetchTruckById(id: string): Promise<Truck | null> {
     if (!snap.exists) return null;
     return ({id: snap.id, ...snap.data()}) as Truck;
 }
+
+// UPDATE
+export async function updateTruckById(id: string, data: Partial<Omit<Truck, 'id'>>): Promise<Truck> {
+    await db.collection('trucks').doc(id).update(data);
+    const updatedTruck = await fetchTruckById(id);
+    if (!updatedTruck) {
+        throw new Error ('Failed to fetch truck after update.');
+    }
+    return updatedTruck;
+}
