@@ -2,7 +2,7 @@
 // No knowledge of HTTP. 
 
 import db from "../utils/firebase/init-firebase";
-import { Load } from "../types/loads";
+import { Load } from "../../../shared/types/loads";
 
 // CREATE
 // Omit removes id from Load (id created by firebase and returned in object as docRef.id)

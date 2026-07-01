@@ -1,10 +1,6 @@
 import express from 'express'; // may not need this here
 import dotenv from 'dotenv';
 import path from 'path';
-import { initializeApp } from 'firebase-admin/app';
-import { cert } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
-import db from './utils/firebase/init-firebase';
 import loadsRouter from './routes/loads';
 import driversRouter from './routes/drivers';
 import trucksRouter from './routes/trucks';

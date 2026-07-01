@@ -1,5 +1,5 @@
 import db from "../utils/firebase/init-firebase";
-import { Truck } from "../types/trucks";
+import { Truck } from "../../../shared/types/trucks";
 
 // CREATE
 export async function createTruck(data: Omit<Truck, 'id'>): Promise<Truck> {

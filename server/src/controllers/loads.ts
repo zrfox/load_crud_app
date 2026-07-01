@@ -2,9 +2,7 @@
 // controllers don't know about firestore/database
 
 import { Request, Response } from "express";
-import db from "../utils/firebase/init-firebase";
 import { createLoad as createLoadService, fetchAllLoads, fetchLoadById, updateLoadById as updateLoadByIdService, deleteLoadById as deleteLoadByIdService } from "../services/loads";
-import { Load } from "../types/loads";
 
 // CREATE
 export async function createLoad(req: Request, res: Response) {

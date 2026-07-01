@@ -2,7 +2,10 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    "rootDir": "./src",
+    // tsc reads both of these on npm run build
+    //rootDir = where to find src files
+    "rootDir": "..",
+    //outDir = where to output compiled files written to disk
     "outDir": "./dist",
 
     // Environment Settings
@@ -41,5 +44,7 @@
     "skipLibCheck": true,
 
     "esModuleInterop": true
-  }
+  },
+  // /**/* is a glob pattern. /** any nested level, /* and file at any of those levels (if you don't add the /* it can be interepred differently in some tools)
+  "include": ["src/**/*", "../shared/**/*"]
 }

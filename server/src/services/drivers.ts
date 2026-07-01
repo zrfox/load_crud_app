@@ -1,5 +1,5 @@
 import db from "../utils/firebase/init-firebase";
-import { Driver } from "../types/drivers";
+import { Driver } from "../../../shared/types/drivers";
 
 // CREATE
 export async function createDriver(data: Omit<Driver, 'id'>): Promise<Driver> {

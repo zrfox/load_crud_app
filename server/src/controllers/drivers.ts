@@ -1,6 +1,5 @@
 import { Request, response, Response } from "express";
 import { createDriver as createDriverService, fetchAllDrivers, fetchDriverById, updateDriverById as updateDriverByIdService, deleteDriverById as deleteDriverByIdService } from "../services/drivers";
-import { loadEnvFile } from "node:process";
 
 // CREATE
 export async function createDriver(req: Request, res: Response) {

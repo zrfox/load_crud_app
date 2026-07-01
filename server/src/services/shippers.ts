@@ -1,5 +1,5 @@
 import db from "../utils/firebase/init-firebase";
-import { Shipper } from "../types/shippers";
+import { Shipper } from "../../../shared/types/shippers";
 
 // CREATE
 export async function createShipper(data: Omit<Shipper, 'id'>): Promise<Shipper> {
