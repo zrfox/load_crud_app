@@ -1,5 +1,6 @@
 import type { Truck } from "../../../shared/types/trucks";
 
+
 export async function createTruck(data: Omit<Truck, 'id'>): Promise<Truck> {
     const res = await fetch('/api/trucks', {
         method: 'POST',
