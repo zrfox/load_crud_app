@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchAllLoads } from "../services/loads";
-import Table from "../components/Table";
+import TableMUI from "../components/TableMUI";
 import type { Load } from "../../../shared/types/loads";
 import { loadColumns } from "../config/columns";
 
@@ -20,7 +20,7 @@ async function fetchLoads() {
     return (
         <>
         <div>Loads Page</div>
-            <Table columns={loadColumns} data={loads as unknown as Record<string, unknown>[]} />
+            <TableMUI columns={loadColumns} data={loads as unknown as Record<string, unknown>[]} />
         </>
     )
 }
