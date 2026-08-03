@@ -8,10 +8,12 @@ function LoadsPage() {
 const [loads, setLoads] = useState<Load[]>([]);
 
 async function fetchLoads() {
+    
     const fetchedLoads = await fetchAllLoads();
     setLoads(fetchedLoads);
 }
 
+    //useEffect expects nothing or cleanup function to return, so async fetchLoads must be declared outside useEffect
     useEffect(() => {
         fetchLoads();
     }, [])

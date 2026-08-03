@@ -1,6 +1,4 @@
-import type { EntityKey } from "../../../shared/types/entitykey";
-
-export interface Column {
+export interface Column<T> {
     label: string;
-    key: EntityKey;
+    key: keyof T;
 }

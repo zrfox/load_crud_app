@@ -1,12 +1,13 @@
 import type { Column } from "../types/Column"
+import type { Load, Driver, Product, Shipper, Truck } from "../../../shared/types/index"
 
-export const driverColumns: Column[] = [
+export const driverColumns: Column<Driver>[] = [
     { label: 'ID', key: 'id' },
     { label: 'Full Name', key: 'fullName' },
     { label: 'Status', key: 'status' },
 ]
 
-export const loadColumns: Column[] = [
+export const loadColumns: Column<Load>[] = [
     { label: 'ID', key: 'id' },
     { label: 'Status', key: 'status' },
     { label: 'Created At', key: 'createdAt' },
@@ -23,18 +24,18 @@ export const loadColumns: Column[] = [
     { label: 'Weight Lbs', key: 'weightLbs' },
 ]
 
-export const productColumns: Column[] = [
+export const productColumns: Column<Product>[] = [
     { label: 'ID', key: 'id' },
     { label: 'Product Name', key: 'productName' },
     { label: 'Type', key: 'type' },
 ]
 
-export const shipperColumns: Column[] = [
+export const shipperColumns: Column<Shipper>[] = [
     { label: 'ID', key: 'id' },
     { label: 'Shipper Name', key: 'shipperName' },
 ]
 
-export const truckColumns: Column[] = [
+export const truckColumns: Column<Truck>[] = [
     { label: 'ID', key: 'id' },
     { label: 'Gross Vehicle Weight', key: 'grossVehicleWeight' },
     { label: 'Height Ft', key: 'heightFt' },

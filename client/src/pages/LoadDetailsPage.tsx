@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import type { Load } from "../../../shared/types/loads";
 import { fetchLoadById } from "../services/loads";
+import DetailsPageComp from "../components/DetailsPageComp";
 import { loadColumns } from "../config/columns";
 
 
 function LoadDetailsPage() { 
-    
+    // do i have to create an object to pass as the detailspagecompprops? 
     const [load, setLoad] = useState<Load>();
     const { id } = useParams();
     
@@ -22,16 +23,20 @@ function LoadDetailsPage() {
         console.log(`Ran fetch load., id is ${id} \n`)
     }, [id])
 
+    // DetailsPageComp props are checked against the component's inferred type in its signature
+    // 'inferred' meaning it takes the type of the data prop and puts it in place of the placeholder T.
+    // ex: ts sees load (which is type Load), load must be T, checks load against DetailsPageProps<Load>
+    // this will check the interface and find data: T | undefined works for passing prop load of type Load
+    // ex: passing load (type Load) to `data` → TS infers T = Load for this specific usage
+    // then checks the rest of the props (columns, etc.) against that inferred T
+    // i.e. columns must be Column<Load>[], not Column<Driver>[] or anything else
     return (
         <>
-        <Link to="/loads">(Back to Loads)</Link>
-            {loadColumns.map((col) => {
-                return (
-                <div key={col.key}>
-                    <strong>{col.label}:</strong>{String(load?.[col.key as keyof Load])}
-
-                </div>
-            )})}
+            <DetailsPageComp
+                data={load}
+                columns={loadColumns}
+                backTo={{path: "/loads", label: "Loads"}}
+            />
         </>
     )
 }
