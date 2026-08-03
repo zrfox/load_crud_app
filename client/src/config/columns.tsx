@@ -1,10 +1,12 @@
-export const driverColumns = [
+import type { Column } from "../types/Column"
+
+export const driverColumns: Column[] = [
     { label: 'ID', key: 'id' },
     { label: 'Full Name', key: 'fullName' },
     { label: 'Status', key: 'status' },
 ]
 
-export const loadColumns = [
+export const loadColumns: Column[] = [
     { label: 'ID', key: 'id' },
     { label: 'Status', key: 'status' },
     { label: 'Created At', key: 'createdAt' },
@@ -21,18 +23,18 @@ export const loadColumns = [
     { label: 'Weight Lbs', key: 'weightLbs' },
 ]
 
-export const productColumns = [
+export const productColumns: Column[] = [
     { label: 'ID', key: 'id' },
     { label: 'Product Name', key: 'productName' },
     { label: 'Type', key: 'type' },
 ]
 
-export const shipperColumns = [
+export const shipperColumns: Column[] = [
     { label: 'ID', key: 'id' },
     { label: 'Shipper Name', key: 'shipperName' },
 ]
 
-export const truckColumns = [
+export const truckColumns: Column[] = [
     { label: 'ID', key: 'id' },
     { label: 'Gross Vehicle Weight', key: 'grossVehicleWeight' },
     { label: 'Height Ft', key: 'heightFt' },
