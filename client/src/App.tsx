@@ -7,11 +7,10 @@ function App() {
     return (
         <>
         <Routes>
-            <Route path="/" element={<LoadsPage />} />
+            <Route path="/loads" element={<LoadsPage />} />
             <Route path="/loads/:id" element={<LoadDetailsPage />} />
             <Route path="/loads/create" element={<LoadCreationPage />} />
         </Routes>
-        <LoadsPage />
         </>
     )
 }
