@@ -6,7 +6,7 @@ import DetailsPageComp from "../components/DetailsPageComp";
 import { loadColumns } from "../config/columns";
 
 
-function LoadDetailsPage() { 
+export function LoadDetailsPage() { 
     // do i have to create an object to pass as the detailspagecompprops? 
     const [load, setLoad] = useState<Load>();
     const { id } = useParams();
@@ -41,4 +41,3 @@ function LoadDetailsPage() {
     )
 }
 
-export default LoadDetailsPage;

@@ -4,7 +4,7 @@ import TableMUI from "../components/TableMUI";
 import type { Load } from "../../../shared/types/loads";
 import { loadColumns } from "../config/columns";
 
-function LoadsPage() {
+export function LoadsPage() {
 const [loads, setLoads] = useState<Load[]>([]);
 
 async function fetchLoads() {
@@ -28,4 +28,3 @@ async function fetchLoads() {
 }
 
 
-export default LoadsPage;

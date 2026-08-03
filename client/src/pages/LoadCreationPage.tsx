@@ -3,11 +3,10 @@ import TableMUI from "../components/TableMUI";
 import { fetchLoadById } from "../services/loads";
 import type { Load } from "../../../shared/types/loads";
 
-function CreateLoadPage() { 
+export function LoadCreationPage() { 
     return (
         <>
         </>
     )
 }
 
-export default CreateLoadPage;
