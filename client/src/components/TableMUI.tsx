@@ -13,9 +13,7 @@ function TableMUI({ columns, data }: TableProps) {
                 </TableHead>
                 <TableBody>
                   {data.map(row => (
-
                     <TableRow key={row.id as string}>
-
                     {columns.map(col => {
                         const value = row[col.key];
                         return (
