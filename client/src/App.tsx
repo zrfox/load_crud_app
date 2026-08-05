@@ -22,21 +22,22 @@ function App() {
     return (
         <>
         <Routes>
+            <Route path="/" element={<LoadsPage />} />
             <Route path="/loads" element={<LoadsPage />} />
             <Route path="/loads/:id" element={<LoadDetailsPage />} />
             <Route path="/loads/create" element={<LoadCreationPage />} />
             <Route path="/drivers" element={<DriversPage />} />
             <Route path="/drivers/:id" element={<DriverDetailsPage />} />
             <Route path="/drivers/create" element={<DriverCreationPage />} />
-            <Route path="/" element={<ProductsPage />} />
+            <Route path="/products" element={<ProductsPage />} />
             <Route path="//:id" element={<ProductDetailsPage />} />
-            <Route path="//create" element={<ProductCreationPage />} />
-            <Route path="/" element={<ShippersPage />} />
-            <Route path="//:id" element={<ShipperDetailsPage />} />
-            <Route path="//create" element={<ShipperCreationPage />} />
-            <Route path="/" element={<TrucksPage />} />
-            <Route path="//:id" element={<TruckDetailsPage />} />
-            <Route path="//create" element={<TruckCreationPage />} />
+            <Route path="/products/create" element={<ProductCreationPage />} />
+            <Route path="/shippers" element={<ShippersPage />} />
+            <Route path="/shippers/:id" element={<ShipperDetailsPage />} />
+            <Route path="/shippers/create" element={<ShipperCreationPage />} />
+            <Route path="/Trucks" element={<TrucksPage />} />
+            <Route path="/Trucks/:id" element={<TruckDetailsPage />} />
+            <Route path="/Trucks/create" element={<TruckCreationPage />} />
         </Routes>
         </>
     )
