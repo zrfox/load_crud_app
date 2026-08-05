@@ -12,11 +12,24 @@ function TableMUI({ columns, data }: TableProps) {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {data.map(row => (
-                        <TableRow key={row.id as string}>
-                            {columns.map(col => <TableCell key={col.key}>{String(row[col.key])}</TableCell>)}
-                        </TableRow>
-                    ))}
+                  {data.map(row => (
+
+                    <TableRow key={row.id as string}>
+
+                    {columns.map(col => {
+                        const value = row[col.key];
+                        return (
+                            <TableCell key={col.key}>
+                                {Array.isArray(value)
+                                ? String(value.length)
+                                : String(value)
+                                }
+                            </TableCell>
+                        )
+                    })}
+                    </TableRow>
+                  ))}
+                    
                 </TableBody>
             </Table>
         </>
